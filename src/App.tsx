@@ -403,16 +403,19 @@ export default function App() {
         if (after > before) {
           const plane = viewer.clipper.planes[after - 1];
           const mesh = plane.planeMesh;
-          if (mesh?.material && 'color' in mesh.material) {
-            mesh.material.color = new Color(0x2f66c7);
-            mesh.material.opacity = 0.25;
-            mesh.material.transparent = true;
-            mesh.material.map = planeGridRef.current;
-            if (mesh.material.map) {
+          const material = Array.isArray(mesh?.material)
+            ? mesh.material[0]
+            : mesh?.material;
+          if (material && 'color' in material) {
+            material.color = new Color(0x2f66c7);
+            material.opacity = 0.25;
+            material.transparent = true;
+            material.map = planeGridRef.current;
+            if (material.map) {
               const repeats = Math.max(1, viewer.clipper.planeSize / GRID_MAJOR_M);
-              mesh.material.map.repeat.set(repeats, repeats);
+              material.map.repeat.set(repeats, repeats);
             }
-            mesh.material.needsUpdate = true;
+            material.needsUpdate = true;
           }
         }
         placingPlaneRef.current = false;
