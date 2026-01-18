@@ -368,7 +368,7 @@ export default function App() {
       backgroundColor: new Color(0xf3f5f7)
     });
 
-    viewer.IFC.setWasmPath('/wasm/');
+    viewer.IFC.setWasmPath(`${import.meta.env.BASE_URL}wasm/`);
     void viewer.IFC.applyWebIfcConfig({
       COORDINATE_TO_ORIGIN: true,
       USE_FAST_BOOLS: true
