@@ -407,15 +407,16 @@ export default function App() {
             ? mesh.material[0]
             : mesh?.material;
           if (material && 'color' in material) {
-            material.color = new Color(0x2f66c7);
-            material.opacity = 0.25;
-            material.transparent = true;
-            material.map = planeGridRef.current;
-            if (material.map) {
+            const planeMaterial = material as any;
+            planeMaterial.color = new Color(0x2f66c7);
+            planeMaterial.opacity = 0.25;
+            planeMaterial.transparent = true;
+            planeMaterial.map = planeGridRef.current;
+            if (planeMaterial.map) {
               const repeats = Math.max(1, viewer.clipper.planeSize / GRID_MAJOR_M);
-              material.map.repeat.set(repeats, repeats);
+              planeMaterial.map.repeat.set(repeats, repeats);
             }
-            material.needsUpdate = true;
+            planeMaterial.needsUpdate = true;
           }
         }
         placingPlaneRef.current = false;
